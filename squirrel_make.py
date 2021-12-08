@@ -142,6 +142,39 @@ def runGame():
             if sObj['bounce'] > sObj['bouncerate']:
                 sObj['bounce'] = 0 
 
+            #
+            if random.randint(0,99) < DIRCHANGEFREQ:
+                sObj['movex'] = getRandomVelocity()
+                sObj['movey'] = getRandomVelocity()
+                if sObj['movex'] > 0 :
+                    sObj['surface'] = pygame.transform.scale(R_SQUIR_IMG, (sObj['width'], sObj['height']))
+                else:
+                    sObj['surface'] = pygame.transform.scale(L_SQUIR_IMG, (sObj['width'], sObj['height']))
+
+
+            # 
+            for i in range(len(grassObjs) -1, -1, -1):
+                if isOutsideActiveArea(camerax, cameray, grassObjs[i]):
+                    del grassObjs[i]
+            for i in range(len(squirrelObjs) -1, -1, -1):
+                if isOutsideActiveArea(camerax, cameray, squirrelObjs[i]):
+                    del squirrelObjs[i]
+
+            # 
+            while len(grassObjs) < NUMGRASS:
+                grassObjs.append(makeNewGrass(camerax, cameray))
+            while len(squirrelObjs) < NUMSQUIRRELS:
+                squirrel.append(makeNewSquirrel(camerax, cameray))
+
+
+
+
+
+
+
+                
+            
+
 
 
 
