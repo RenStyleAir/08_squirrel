@@ -83,12 +83,64 @@ def main():
 
 def runGame():
     # 
-    invulnerablemode = False
+    invulnerableMode = False
+    invulnerableStartTime = 0   
+    gameOverMode = False
+    gameOverStartTime = 0
+    winMode = False
 
+    # 
+    gameOverSurf = BASICFONT.render('Game Over', True, WHITE)
+    gameOverRect = gameOverSurf.get_rect()
+    gameOverRect.center = (HALF_WINWIDTH, HALF_WINHEIGHT)
 
+    winSurf = BASICFONT.render('You have achieved OMEGA SQUIRREL!', True, WHITE )
+    winRect = winSurf.get_rect()
+    winRect.center = (HALF_WINWIDTH, HALF_WINWIDTH)
 
+    winSurf2 = BASICFONT.render('(Press "r" to restart)', True, WHITE)
+    winRect2 = winSurf2.get_rect()
+    winRect.center = (HALF_WINWIDTH, HALF_WINHEIGHT + 30)
 
+    # 
+    camerax = 0
+    cameray = 0 
 
+    grassObjs = []
+    squirrelObjs = []
+    # 
+    playerObj = {'surface': pygame.transform.scale(L_SQUIR_IMG, (STARTSIZE, STARTSIZE)),
+        'facing': LEFT,
+        'size': STARTSIZE,
+        'x': HALF_WINWIDTH,
+        'y': HALF_WINHEIGHT,
+        'bounce': 0,
+        'health': MAXHEALTH}
+
+    moveLeft = False
+    moveRight = False
+    moveUp = False
+    moveDown = False
+
+    # 
+    for i in range(10):
+        grassObjs.append(makeNewGrass(camerax, cameray))
+        grassObjs[i]['x'] = random.randint(0,WINWIDTH)
+        grassObjs[i]['y'] = random.randint(0,WINHEIGHT)
+
+    while True:
+        # 
+        if invulnerableMode and time.time() - invulnerableStartTime > INVULNTIME:
+            invulnerableMode = False
+
+        # 
+        for sObj in squirrelObjs:
+            # 
+            sObj['x'] += sObj['movex']
+            sObj['y'] += sObj['movey']
+            sObj['bounce'] += 1
+            if sObj['bounce'] > sObj['bouncerate']:
+                sObj['bounce'] = 0 
 
 
 
