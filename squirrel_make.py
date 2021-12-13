@@ -263,6 +263,27 @@ def runGame():
                     if moveDown:
                         playerObj['y'] += MOVERATE
 
+                    if (moveLeft or moveRight or moveUp or moveDown) or playerObj['bounce'] != 0 :
+                        playerObj['bounce'] += 1
+
+                    if playerObj['bounce'] > BOUNCERATE:
+                        playerObj['bounce'] = 0 
+
+                # 
+                for i in range(len(squirrelObjs) -1, -1, -1):
+                    sqObj = squirrelObjs[i]
+                    if 'rect' in sqObj and playerObj['rect'].colliderect(sqObj['rect']):
+
+
+                        if sqObj['width'] * sqObj['hiehgt'] <= playerObj['size']**2:
+                            # 
+                            playerObj['size'] += int((sqObj['width'] * sqObj['height'])** 0.2) +1
+                            del squirrelObjs[i]
+
+                            
+
+
+
 
 
 
