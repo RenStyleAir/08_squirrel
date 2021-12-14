@@ -280,7 +280,33 @@ def runGame():
                             playerObj['size'] += int((sqObj['width'] * sqObj['height'])** 0.2) +1
                             del squirrelObjs[i]
 
-                            
+                            if playerObj['facing'] == LEFT:
+                                playerObj['sureface'] = pygame.transform.scale(L_SQUIR_IMG, playerObj['size'], playerObj['size'] )
+                            if playerObj['facing'] == RIGHT:
+                                playerObj['sureface'] = pygame.transform.scale(R_SQUIR_IMG, playerObj['size'], playerObj['size'] )
+
+                            if playerObj['size'] > WINSIZE:
+                                winMode = True
+
+                    elif not unvulnerableMode:
+                        # 
+                        invulnerableMode = True
+                        invulnerableStartTime = time.time()
+                        playerObj['health'] -= 1
+                        if playerObj['health'] == 0:
+                            gameOverMode = True
+                            gameOverStartTime = time.time()
+                else:
+
+                    DISPLAYSURF.blit(gameOverSurf. gameOverRect)
+                    if time.time() - gameOverStartTime > GAMEOVERTIME:
+                        return
+                                   
+
+                                                
+
+                                                
+                        
 
 
 
@@ -292,8 +318,9 @@ def runGame():
 
 
 
-                
-            
+
+        
+    
 
 
 
