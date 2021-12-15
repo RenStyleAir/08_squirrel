@@ -166,6 +166,45 @@ def runGame():
             while len(squirrelObjs) < NUMSQUIRRELS:
                 squirrel.append(makeNewSquirrel(camerax, cameray))
 
+            # 
+            playerCenterx = playerObj['x'] + int(playerObj['size'] /2)
+            playerCentery = playerObj['y'] + int(playerObj['size'] /2)
+            if (camerax + HALF_WINWIDTH) - playerCenterx > CAMERASLACK : 
+                camerax = playerCenterx + CAMERASLACK - HALF_WINWIDTH
+            elif camerax - ( HALF_WINWIDTH + playerCenterx ) > CAMERASLACK : 
+                camerax = playerCenterx - CAMERASLACK - HALF_WINWIDTH
+            if (cameray + HALF_WINHEIGHT) - playerCenterx > CAMERASLACK : 
+                cameray = playerCentery + CAMERASLACK - HALF_WINWIDTH
+            elif cameray - ( HALF_WINHEIGHT + playerCentery ) > CAMERASLACK : 
+                cameray = playerCentery - CAMERASLACK - HALF_WINWIDTH
+
+            # 
+            DISPLAYSURF.fill(GRASSCOLOR)
+
+            # 
+            for gObjs in grassObjs:
+                gRect = pygame.Rect((gObj['x'] - camerax,
+                            gObj['y']- cameray,
+                            gObj['width'],
+                            gObj['height']))
+                DISPLAYSURF.blit(GRASSIMAGES[gObj['grassImage']], gRect)
+
+
+            # 
+            for sObj in squirrelObjs:
+                sObj['rect'] = pygame.Rect( ( sObj['x'] -camerax,
+                            sObj['y'] - cameray - getBounceAmount(sObj['bounce'], sObj['bouncerate'], sObj['bounceheight']),
+                            sObj['width'],
+                            sObj['height']))
+                DISPLAYSURF.blit(sObj['surface'], sObj['rect'])
+
+
+            # 
+            falshIsOn = round(time.time(), 1) * 10 % 2 == 1
+
+
+
+
 
 
 
